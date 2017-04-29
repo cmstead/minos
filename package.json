@@ -1,0 +1,36 @@
+{
+  "name": "minos",
+  "version": "1.0.0",
+  "description": "Simple, extensible rich data validation and integrity checker for Javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha ./test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmstead/minos.git"
+  },
+  "keywords": [
+    "data",
+    "validation",
+    "data",
+    "integrity",
+    "type",
+    "checking",
+    "data",
+    "types"
+  ],
+  "author": "Chris Stead",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/cmstead/minos/issues"
+  },
+  "homepage": "https://github.com/cmstead/minos#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.3.0"
+  },
+  "dependencies": {
+    "signet": "^1.3.1"
+  }
+}
