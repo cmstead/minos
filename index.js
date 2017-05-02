@@ -53,6 +53,10 @@ function minos() {
         };
     }
 
+    function typeByString (typeString){
+        return signet.isTypeOf(typeString);
+    }
+
     // Type setup below
 
     function isObjectInstance(value) {
@@ -73,22 +77,36 @@ function minos() {
         return isObjectInstance(value) && nonConformantProperties.length === 0;
     }
 
-    function isRegExp(value) {
-        return Object.prototype.toString.call(value) === '[object RegExp]';
-    }
-
     signet.subtype('object')('objectType', isObjectType);
-    signet.subtype('object')('regexp', isRegExp);
+
+    // W3C regex pattern
+    var emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    signet.subtype('string')('email', validateRegex(emailRegex));
 
     return {
         range: signet.enforce('A < B :: A:number, B:number => * => boolean', validateRange),
-        regex: signet.enforce('variant<string; regexp> => * => boolean', validateRegex),
+        regex: signet.enforce('variant<string; regexp> => string => boolean', validateRegex),
 
         defineValidator: signet.enforce('string, variant<string; function; objectType> => undefined', defineValidator),
         defineSubValidatorOn: signet.enforce('string => string, variant<string; function; objectType> => undefined', defineSubValidatorOn),
 
-        validateAndThrowOn: signet.enforce('variant<string; function; objectType> => * => boolean', validateAndThrowOn),
-        validateOn: signet.enforce('variant<string; function; objectType> => * => boolean', validateOn)
+        validateAndThrowOn: signet.enforce('variant<string; function; objectType> => * => undefined', validateAndThrowOn),
+        validateOn: signet.enforce('variant<string; function; objectType> => * => boolean', validateOn),
+
+        isTypeOf: {
+            boolean: signet.enforce('* => boolean', signet.isTypeOf('boolean')),
+            function: signet.enforce('* => boolean', signet.isTypeOf('function')),
+            object: signet.enforce('* => boolean', signet.isTypeOf('object')),
+            string: signet.enforce('* => boolean', signet.isTypeOf('string')),
+            symbol: signet.enforce('* => boolean', signet.isTypeOf('symbol')),
+            undefined: signet.enforce('* => boolean', signet.isTypeOf('undefined')),
+            null: signet.enforce('* => boolean', signet.isTypeOf('null')),
+
+            array: signet.enforce('* => boolean', signet.isTypeOf('array')),
+            email: signet.enforce('* => boolean', signet.isTypeOf('email')),
+            regexp: signet.enforce('* => boolean', signet.isTypeOf('regexp')),
+            int: signet.enforce('* => boolean', signet.isTypeOf('int')),
+        }
     };
 
 }
