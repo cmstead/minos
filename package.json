@@ -11,14 +11,10 @@
     "url": "git+https://github.com/cmstead/minos.git"
   },
   "keywords": [
-    "data",
-    "validation",
-    "data",
-    "integrity",
-    "type",
-    "checking",
-    "data",
-    "types"
+    "data validation",
+    "data integrity",
+    "type checking",
+    "data types"
   ],
   "author": "Chris Stead",
   "license": "MPL-2.0",
